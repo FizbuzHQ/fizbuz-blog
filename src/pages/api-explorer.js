@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import GraphiQL from 'graphiql-with-extensions'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -31,19 +31,24 @@ const defaultQuery = `{
 }
 `;
 
-const ApiExplorer = () => (
-  <Layout>
+const ApiExplorer = () => {
+  const [loaded, setLoaded] = useState(false)
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
+  return <Layout>
     <SEO title="Fizbuz API Explorer" />
     <h1>API Explorer</h1>
     <div style={{height: '100vh'}}>
-    <GraphiQL
+    {loaded && <GraphiQL
       fetcher={graphQLFetcher}
       // Some optional props
       defaultQuery={defaultQuery}
       // disableExplorer={false}
-    />
+    />}
     </div>
   </Layout>
-)
+}
 
 export default ApiExplorer
