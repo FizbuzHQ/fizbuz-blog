@@ -1,9 +1,9 @@
 import React from "react"
-import { Link } from "gatsby"
-import GraphiQL from "graphiql";
+import GraphiQL from 'graphiql-with-extensions'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import './api-explorer.css'
+
 
 const URL = "https://fizbuz.com/graphql";
 
@@ -15,8 +15,7 @@ function graphQLFetcher(graphQLParams) {
   }).then(response => response.json());
 }
 
-const defaultQuery = `
-{
+const defaultQuery = `{
   account(nickname: "carter") {
     about
     location
@@ -33,14 +32,17 @@ const defaultQuery = `
 `;
 
 const ApiExplorer = () => (
-  <Layout width="100vw">
-    <SEO title="API Explorer" />
+  <Layout>
+    <SEO title="Fizbuz API Explorer" />
     <h1>API Explorer</h1>
-    <p>Some text</p>
     <div style={{height: '100vh'}}>
-      <GraphiQL fetcher={graphQLFetcher} defaultQuery={defaultQuery} />
+    <GraphiQL
+      fetcher={graphQLFetcher}
+      // Some optional props
+      defaultQuery={defaultQuery}
+      // disableExplorer={false}
+    />
     </div>
-    <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
 
