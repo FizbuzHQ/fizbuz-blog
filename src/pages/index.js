@@ -100,9 +100,12 @@ fragment TypeRef on __Type {
 
 
 
-const IndexPage = () => {
+const IndexPage = (props) => {
+  let { location } = props
+  let { hash } = location
   const [types, setTypes] = useState(null)
 
+  // fetch the API description
   useEffect(() => {
     const URL = "https://staging.fizbuz.com/graphql"
 
@@ -118,7 +121,10 @@ const IndexPage = () => {
     fetchData()
   }, [])
 
-  console.log(types)
+  // after types gets populated, if a hash anchor was specified, scroll to the correct location
+  useEffect(() => {
+    if (types && hash) document.getElementById(hash.substr(1)).scrollIntoView()
+  }, [types, hash])
 
   let nodes
   let edges
